@@ -84,6 +84,63 @@
   transform: translateY(0);
 }
 
+/* ---- TicTacToe custom styles ---- */
+.ttt-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: clamp(1.8rem, 6vw, 2.8rem);
+  border: none;
+  outline: none;
+  background: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow 0.14s, background 0.12s, color 0.12s;
+  cursor: pointer;
+  user-select: none;
+}
+
+.ttt-square:active {
+  filter: brightness(98%);
+}
+
+.ttt-square:disabled, .ttt-square:disabled:hover {
+  background: var(--bg-primary);
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.ttt-mode, .ttt-reset {
+  margin: 2px 6px 2px 0;
+  outline: none;
+}
+
+.ttt-mode.active {
+  font-weight: 800;
+}
+.ttt-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ttt-status {
+  margin-top: 13px;
+  letter-spacing: 0.01em;
+}
+
+/* Responsive tweaks */
+@media (max-width: 410px) {
+  .App-header {
+    font-size: 16px;
+  }
+}
+@media (max-width: 340px) {
+  .App-header {
+    font-size: 13px;
+  }
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
