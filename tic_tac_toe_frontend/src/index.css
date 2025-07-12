@@ -1,13 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+/* Apply arcade/pixel font globally for retro look */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Press Start 2P', 'VT323', monospace !important;
+  background: #221133;
+  color: #ffe066;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: auto;
+  text-shadow: 1px 1px 0 #000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+code, pre, kbd, samp {
+  font-family: 'Press Start 2P', 'VT323', monospace !important;
+  font-size: 1em;
+  background: transparent;
+  color: inherit;
 }

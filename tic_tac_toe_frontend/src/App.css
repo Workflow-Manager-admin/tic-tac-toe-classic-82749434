@@ -1,161 +1,337 @@
-/* CSS Variables for Theme Management */
+/* --- Retro Arcade Theme v1.0 --- */
+
+/* Pixel/Arcade font faces (examples: 'Press Start 2P', 'VT323'; fallback to monospace) */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
+
+/* CSS Variables for Retro Theme Management */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  /* Retro color palette: bold, high-contrast */
+  --retro-red: #ff3366;
+  --retro-cyan: #35fff1;
+  --retro-purple: #b16cff;
+  --retro-yellow: #ffe066;
+  --retro-green: #8aff14;
+  --retro-bg-dark: #221133;
+  --retro-bg-light: #2c193f;
+  --retro-panel: #ec387e;
+  --retro-border: #ffe066;
+  --retro-text-shadow: #000000;
+  --retro-pixel: #fff12b;
+  --retro-btn-gradient: linear-gradient(180deg, #ffe066 5%, #b16cff 95%);
+  --retro-btn-active-gradient: linear-gradient(180deg, #b16cff 40%, #ffe066 100%);
+  --retro-focus: #ff3366;
+  --retro-outline: 0 0 0 3px #ffe066, 0 0 15px 2px #ff3366;
+  --arcade-font: 'Press Start 2P', 'VT323', monospace;
 }
 
 [data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  /* Slightly bolder for dark mode */
+  --retro-bg-dark: #11071f;
+  --retro-bg-light: #24124b;
+  --retro-text-shadow: #e81cff;
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: var(--retro-bg-dark);
+  font-family: var(--arcade-font) !important;
+  color: var(--retro-yellow);
+}
+
+/* --- Main container --- */
 .App {
   text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: var(--retro-bg-dark);
+  color: var(--retro-yellow);
+  font-family: var(--arcade-font), monospace;
+  letter-spacing: 1.3px;
+  transition: background 0.3s, color 0.3s;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+/* --- Header --- */
 .App-header {
-  background-color: var(--bg-secondary);
+  background: var(--retro-bg-light);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
+  justify-content: flex-start;
+  font-size: 19px;
+  color: var(--retro-yellow);
+  transition: background 0.3s;
   position: relative;
+  padding-top: 28px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+/* --- Game Title --- */
+.App-header h1 {
+  font-family: var(--arcade-font), monospace;
+  font-weight: 900;
+  font-size: 2.3rem;
+  letter-spacing: 1.7px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+  color: var(--retro-yellow);
+  text-shadow: 
+    0 3px 0 var(--retro-purple),
+    2px 2px 0 #000,
+    0 0 6px #ff3366,
+    0 3px 8px var(--retro-red);
+  text-transform: uppercase;
+  filter: none;
 }
 
+/* --- Theme Toggle Button --- */
 .theme-toggle {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+  top: 18px;
+  right: 18px;
+  background: var(--retro-btn-gradient);
+  color: var(--retro-red);
+  font-family: var(--arcade-font);
+  border: 3px solid var(--retro-border);
+  border-radius: 0;
+  outline: none;
+  text-shadow: 1.5px 1.5px 0 #000, 0 0 3px #ffe066;
+  font-size: 16px;
+  font-weight: 700;
+  padding: 11px 26px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 2px #000, 0 2px 9px var(--retro-red);
+  transition: all 0.15s;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.theme-toggle:hover, .theme-toggle:focus-visible {
+  background: var(--retro-btn-active-gradient);
+  color: var(--retro-bg-dark);
+  box-shadow: 0 0 1.5px 1.5px #ffe066, 0 6px 12px #221133;
+  outline: var(--retro-outline);
 }
-
 .theme-toggle:active {
-  transform: translateY(0);
+  background: var(--retro-btn-gradient);
 }
 
-/* ---- TicTacToe custom styles ---- */
+/* --- TicTacToe Board Squares --- */
 .ttt-square {
   width: 100%;
   aspect-ratio: 1 / 1;
-  font-size: clamp(1.8rem, 6vw, 2.8rem);
-  border: none;
-  outline: none;
-  background: var(--bg-primary);
   display: flex;
-  justify-content: center;
   align-items: center;
-  transition: box-shadow 0.14s, background 0.12s, color 0.12s;
+  justify-content: center;
+  font-size: clamp(2rem, 7vw, 2.9rem);
+  background: var(--retro-bg-light);
+  color: var(--retro-yellow);
+  border: 3.5px solid var(--retro-border);
+  outline: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--arcade-font);
+  font-weight: 900 !important;
+  box-shadow:
+    0 2px 0 #000,
+    0 0 8px #ffd600 inset;
+  text-shadow: 
+    1.8px 1.8px 0 #000,
+    0 0 5px var(--retro-cyan);
   cursor: pointer;
   user-select: none;
+  transition: transform 0.13s, background 0.18s, color 0.18s;
 }
 
-.ttt-square:active {
-  filter: brightness(98%);
+.ttt-square:active, .ttt-square:focus-visible {
+  background: var(--retro-red);
+  color: #fff12b;
+  box-shadow:
+    0 0 2px 4px #b16cff inset,
+    0 0 12px 2px #ff3366;
+  outline: var(--retro-outline);
 }
 
 .ttt-square:disabled, .ttt-square:disabled:hover {
-  background: var(--bg-primary);
+  background: var(--retro-bg-dark);
+  color: #635a6c;
+  opacity: 0.5;
   cursor: not-allowed;
-  opacity: 0.52;
 }
 
-.ttt-mode, .ttt-reset {
-  margin: 2px 6px 2px 0;
-  outline: none;
+.ttt-square.X {
+  color: var(--retro-cyan);
+  text-shadow:
+    0 1.8px 0 #000, 0 0 2px var(--retro-purple),
+    0 0 10px #ffe066, 0 4px 8px #221133;
+}
+.ttt-square.O {
+  color: var(--retro-red);
+  text-shadow:
+    0 2.5px 0 #000, 0 0 2px #ffe066,
+    0 0 13px #ff3366, 0 4px 8px #221133;
 }
 
-.ttt-mode.active {
-  font-weight: 800;
+/* --- Board container --- */
+div[aria-label="Tic Tac Toe Board"] {
+  background: var(--retro-panel);
+  border-radius: 0;
+  border: 4px double var(--retro-yellow);
+  box-shadow: 0 8px 26px #22004066, 0 0 11px #ffe066;
+  padding: 12px;
+  margin-top: 0.3em;
+  margin-bottom: 1.6em;
+  max-width: 380px;
+  width: min(97vw, 380px);
+  aspect-ratio: 1 / 1;
+  gap: 0;
 }
+
+/* --- Game Controls --- */
 .ttt-controls {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.ttt-status {
-  margin-top: 13px;
-  letter-spacing: 0.01em;
+.ttt-modes {
+  display: flex;
+  gap: 11px;
+  margin-bottom: 13px;
 }
 
-/* Responsive tweaks */
+.ttt-mode {
+  font-family: var(--arcade-font);
+  font-size: 0.92rem;
+  background: var(--retro-btn-gradient);
+  color: var(--retro-red);
+  border: 2.5px solid var(--retro-yellow);
+  border-radius: 0;
+  text-shadow: 1.5px 1.5px 0 #000, 0 0 2px #ffe066;
+  font-weight: 700;
+  padding: 8px 17px;
+  margin: 0 8px 0 0;
+  cursor: pointer;
+  transition: all 0.11s;
+  box-shadow: 0 2px 0px #221133 inset;
+}
+
+.ttt-mode:focus-visible, .ttt-mode.active {
+  background: var(--retro-red);
+  color: #fff12b;
+  border-color: var(--retro-purple);
+  outline: var(--retro-outline);
+  box-shadow: 0 4px 8px #000a, 0 0 1.5px 1.5px #b16cff;
+}
+.ttt-mode:active {
+  background: var(--retro-btn-active-gradient);
+  color: var(--retro-bg-dark);
+}
+
+.ttt-reset {
+  background: var(--retro-btn-gradient);
+  color: var(--retro-purple);
+  border: 2.5px solid var(--retro-yellow);
+  border-radius: 0;
+  padding: 9px 35px;
+  font-family: var(--arcade-font);
+  font-weight: 900;
+  font-size: 1.1rem;
+  margin-top: 10px;
+  cursor: pointer;
+  text-shadow: 1.5px 1.5px 0 #000, 0 0 2px #fff12b;
+  box-shadow: 0 2px 0px #221133 inset;
+  transition: all 0.13s;
+}
+.ttt-reset:focus-visible, .ttt-reset:hover {
+  color: #ff3366;
+  background: var(--retro-btn-active-gradient);
+  border-color: var(--retro-red);
+  outline: var(--retro-outline);
+}
+.ttt-reset:active {
+  background: var(--retro-bg-dark);
+  color: var(--retro-yellow);
+}
+
+/* --- Status Panel --- */
+.ttt-status {
+  margin-top: 16px;
+  padding: 7px 0 3px 0;
+  letter-spacing: 2.2px;
+  font-size: 1.2em;
+  font-family: var(--arcade-font);
+  text-shadow: 2px 2px 0 #000, 0 0 7px #ffe066;
+  color: var(--retro-yellow);
+  user-select: none;
+}
+
+.ttt-status .winner, .ttt-status span[style*="color"] {
+  text-shadow: 2px 2px 0 #ff3366, 0 0 8px #fff12b;
+  font-weight: 900;
+}
+
+.ttt-status .draw {
+  color: var(--retro-cyan) !important;
+  text-shadow: 2px 2px #000, 0 0 8px #efee76;
+}
+
+.ttt-status .ai-thinking {
+  color: var(--retro-green);
+  text-shadow: 1.5px 1.5px 0 #000, 0 0 3px #ffe066;
+}
+
+/* --- Footer --- */
+.App-header footer {
+  margin-top: 40px;
+  color: var(--retro-cyan);
+  font-size: 1em;
+  text-shadow: 1.3px 1.3px #000, 0 0 8px #ffe066;
+  letter-spacing: 2px;
+}
+
+/* --- Accessibility focus --- */
+button:focus-visible, [tabindex]:focus-visible {
+  outline: var(--retro-outline);
+}
+
+/* --- Retro pixel border for board squares --- */
+.ttt-square {
+  box-shadow: 0 0 0 3px #000, 0 2px 0 #ffe066, 0 0 11px #b16cff inset;
+  border-radius: 0;
+}
+
+/* --- Responsive design for mobile --- */
+@media (max-width: 600px) {
+  .App-header,
+  .App-header h1 {
+    font-size: 11vw;
+  }
+  .theme-toggle {
+    font-size: 12px;
+    padding: 8px 13px;
+    top: 7px;
+    right: 7px;
+  }
+}
 @media (max-width: 410px) {
   .App-header {
-    font-size: 16px;
+    font-size: 14px;
+    padding-top: 5vw;
+  }
+  .App-header h1 {
+    font-size: 7vw;
   }
 }
 @media (max-width: 340px) {
   .App-header {
-    font-size: 13px;
+    font-size: 12px;
   }
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }

@@ -54,7 +54,7 @@ function calculateWinner(board) {
   return null;
 }
 
-// Board rendering
+/* --- Board rendering with retro styling --- */
 function Board({ board, onSquareClick, disabled }) {
   return (
     <div
@@ -62,10 +62,12 @@ function Board({ board, onSquareClick, disabled }) {
         display: "grid",
         gridTemplateColumns: `repeat(${BOARD_SIZE}, 1fr)`,
         gap: 0,
-        background: COLORS.bgLight,
-        borderRadius: "16px",
-        boxShadow: `0 2px 16px 0 ${COLORS.boardShadow}`,
-        width: "min(94vw, 370px)",
+        background: "var(--retro-panel)",
+        borderRadius: "0",
+        border: "4px double var(--retro-yellow)",
+        boxShadow: "0 8px 26px #22004066, 0 0 11px #ffe066",
+        padding: 12,
+        width: "min(97vw, 380px)",
         aspectRatio: "1 / 1"
       }}
       aria-label="Tic Tac Toe Board"
@@ -74,21 +76,7 @@ function Board({ board, onSquareClick, disabled }) {
         row.map((cell, j) => (
           <button
             key={i + "-" + j}
-            className="ttt-square"
-            style={{
-              borderRight:
-                j < BOARD_SIZE - 1
-                  ? `1.5px solid ${COLORS.border}`
-                  : "none",
-              borderBottom:
-                i < BOARD_SIZE - 1
-                  ? `1.5px solid ${COLORS.border}`
-                  : "none",
-              background: COLORS.bgLight,
-              color: cell === PLAYER_X ? COLORS.primary : COLORS.secondary,
-              cursor: disabled || cell ? "default" : "pointer",
-              fontWeight: 700
-            }}
+            className={`ttt-square${cell === PLAYER_X ? " X" : ""}${cell === PLAYER_O ? " O" : ""}`}
             aria-label={
               cell
                 ? `Cell ${i + 1},${j + 1}, value ${cell}`
@@ -98,6 +86,21 @@ function Board({ board, onSquareClick, disabled }) {
               !disabled && !cell ? onSquareClick(i, j) : undefined
             }
             disabled={disabled || !!cell}
+            tabIndex={disabled || !!cell ? -1 : 0}
+            style={{
+              borderRight:
+                j < BOARD_SIZE - 1 ? "none" : undefined,
+              borderBottom:
+                i < BOARD_SIZE - 1 ? "none" : undefined,
+              fontWeight: 900,
+              fontFamily: "'Press Start 2P', 'VT323', monospace",
+              background: "var(--retro-bg-light)",
+              color: cell === PLAYER_X
+                ? "var(--retro-cyan)"
+                : cell === PLAYER_O
+                  ? "var(--retro-red)"
+                  : "var(--retro-yellow)"
+            }}
           >
             {cell}
           </button>
@@ -118,19 +121,10 @@ function GameControls({
   aiThinking
 }) {
   return (
-    <div className="ttt-controls" style={{ margin: "22px 0 0 0" }}>
-      <div className="ttt-modes" style={{ marginBottom: 10 }}>
+    <div className="ttt-controls" style={{ margin: "20px 0 0 0" }}>
+      <div className="ttt-modes">
         <button
-          className={`ttt-mode ${mode === MODE_LOCAL ? "active" : ""}`}
-          style={{
-            background: mode === MODE_LOCAL ? COLORS.primary : COLORS.bgLight,
-            color: mode === MODE_LOCAL ? "#fff" : COLORS.secondary,
-            border: mode === MODE_LOCAL
-              ? `2px solid ${COLORS.primary}`
-              : `1.5px solid ${COLORS.border}`,
-            marginRight: 4,
-            transition: "all 0.15s"
-          }}
+          className={`ttt-mode${mode === MODE_LOCAL ? " active" : ""}`}
           onClick={() => setMode(MODE_LOCAL)}
           disabled={aiThinking}
           aria-pressed={mode === MODE_LOCAL}
@@ -138,15 +132,7 @@ function GameControls({
           👥 2-Player
         </button>
         <button
-          className={`ttt-mode ${mode === MODE_AI ? "active" : ""}`}
-          style={{
-            background: mode === MODE_AI ? COLORS.accent : COLORS.bgLight,
-            color: mode === MODE_AI ? COLORS.secondary : COLORS.secondary,
-            border: mode === MODE_AI
-              ? `2px solid ${COLORS.accent}`
-              : `1.5px solid ${COLORS.border}`,
-            transition: "all 0.15s"
-          }}
+          className={`ttt-mode${mode === MODE_AI ? " active" : ""}`}
           onClick={() => setMode(MODE_AI)}
           disabled={aiThinking}
           aria-pressed={mode === MODE_AI}
@@ -156,18 +142,6 @@ function GameControls({
       </div>
       <button
         className="ttt-reset"
-        style={{
-          background: COLORS.secondary,
-          color: COLORS.accent,
-          border: "none",
-          padding: "8px 24px",
-          borderRadius: 8,
-          fontWeight: 600,
-          fontSize: 16,
-          cursor: aiThinking ? "not-allowed" : "pointer",
-          opacity: aiThinking ? 0.7 : 1,
-          boxShadow: "0 2px 6px rgba(60,60,60,0.06)"
-        }}
         onClick={onReset}
         disabled={aiThinking}
       >
@@ -177,27 +151,27 @@ function GameControls({
         {winner
           ? winner === "draw"
             ? (
-              <span style={{color: COLORS.secondary}}>
-                🤝 <span style={{ fontWeight: 500 }}>Draw!</span>
-              </span>
-            )
-            : (
-              <span>
-                🏆 <span style={{ color: winner === PLAYER_X ? COLORS.primary : COLORS.secondary, fontWeight: 700 }}>{winner}</span> wins!
-              </span>
-            )
-          : (
-            aiThinking
-              ? <span style={{ color: COLORS.accent }}>🤖 Thinking...</span>
-              : (
-                <span>
-                  <span>Next: </span>
-                  <span style={{ color: nextTurn === PLAYER_X ? COLORS.primary : COLORS.secondary, fontWeight: 700}}>
-                    {nextTurn}
-                  </span>
+                <span className="draw">
+                  🤝 <span className="draw" style={{ fontWeight: 700 }}>Draw!</span>
                 </span>
               )
-          )
+            : (
+                <span>
+                  🏆 <span className="winner" style={{ color: winner === PLAYER_X ? "var(--retro-cyan)" : "var(--retro-red)", fontWeight: 900 }}>{winner}</span> wins!
+                </span>
+              )
+          : (
+              aiThinking
+                ? <span className="ai-thinking">🤖 Thinking...</span>
+                : (
+                    <span>
+                      <span>Next: </span>
+                      <span style={{ color: nextTurn === PLAYER_X ? "var(--retro-cyan)" : "var(--retro-red)", fontWeight: 900}}>
+                        {nextTurn}
+                      </span>
+                    </span>
+                  )
+            )
         }
       </div>
     </div>
